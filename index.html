@@ -3,13 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>小饭桌 · 食谱APP</title>
+<title>今天吃啥</title>
+<meta name="theme-color" content="#FF7A1A">
+<meta name="description" content="家常菜谱：按食材找菜、看做法视频、规划一周三餐">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="今天吃啥">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
 <header class="app-header">
-  <h1>🍳 小饭桌</h1>
+  <h1>🍳 今天吃啥</h1>
   <p class="subtitle">有啥吃啥，顿顿不愁</p>
 </header>
 
@@ -148,5 +157,12 @@
 
 <script src="data.js"></script>
 <script src="app.js"></script>
+<script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("sw.js").catch(() => {});
+  });
+}
+</script>
 </body>
 </html>
