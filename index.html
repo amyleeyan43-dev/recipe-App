@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>小饭桌 · 食谱APP</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="app-header">
+  <h1>🍳 小饭桌</h1>
+  <p class="subtitle">有啥吃啥，顿顿不愁</p>
+</header>
+
+<main class="app-main">
+
+  <!-- ===== 食材 tab ===== -->
+  <section id="tab-ingredients" class="tab-page active">
+    <div class="page-head">
+      <h2>🧺 我家有啥</h2>
+      <p class="hint">勾选你现在手头的食材，然后点「生成菜谱」</p>
+    </div>
+    <div class="select-bar">
+      <span id="ingCount">已选 0 种食材</span>
+      <button class="link-btn" id="clearIng">清空</button>
+    </div>
+    <div id="ingCategories"></div>
+    <button class="primary-btn big-btn sticky-bottom" id="genRecipes">✨ 生成菜谱</button>
+  </section>
+
+  <!-- ===== 菜谱 tab ===== -->
+  <section id="tab-recipes" class="tab-page">
+    <div class="page-head">
+      <h2>📖 菜谱</h2>
+      <p class="hint" id="recipeHint">先去「食材」页勾选你有的食材吧</p>
+    </div>
+    <div class="filter-row" id="recipeFilters">
+      <button class="chip active" data-f="all">全部</button>
+      <button class="chip" data-f="荤菜">荤菜</button>
+      <button class="chip" data-f="素菜">素菜</button>
+      <button class="chip" data-f="主食">主食</button>
+      <button class="chip" data-f="汤羹">汤羹</button>
+      <button class="chip" data-f="凉菜">凉菜</button>
+    </div>
+    <div id="recipeList"></div>
+  </section>
+
+  <!-- 菜谱详情（覆盖层） -->
+  <div id="recipeDetail" class="detail-overlay hidden">
+    <div class="detail-card">
+      <button class="close-btn" id="closeDetail">✕</button>
+      <div id="detailContent"></div>
+    </div>
+  </div>
+
+  <!-- ===== 助手 tab ===== -->
+  <section id="tab-assistant" class="tab-page">
+    <div class="page-head">
+      <h2>🤖 厨房助手</h2>
+      <p class="hint">问我"怎么做宫保鸡丁"或"我有番茄鸡蛋做什么好"</p>
+    </div>
+    <div class="avatar-picker">
+      <span class="label">我的形象：</span>
+      <div id="avatarChoices"></div>
+    </div>
+    <div id="chatBox" class="chat-box"></div>
+    <div class="chat-input-row">
+      <input id="chatInput" type="text" placeholder="问问我吧…" maxlength="100">
+      <button class="primary-btn" id="chatSend">发送</button>
+    </div>
+  </section>
+
+  <!-- ===== 清单 tab ===== -->
+  <section id="tab-lists" class="tab-page">
+    <div class="page-head">
+      <h2>📝 清单</h2>
+    </div>
+
+    <div class="card">
+      <h3>🛒 采买清单 <span class="count-badge" id="shopCount"></span></h3>
+      <div class="add-row">
+        <input id="shopInput" type="text" placeholder="手动添加要买的东西…" maxlength="20">
+        <button class="primary-btn" id="shopAdd">添加</button>
+      </div>
+      <ul id="shopList" class="check-list"></ul>
+      <button class="ghost-btn" id="clearBought">清空已买</button>
+    </div>
+
+    <div class="card">
+      <h3>📅 一周菜谱</h3>
+      <p class="hint">为每天的三餐安排菜谱，再一键生成采买清单</p>
+      <div id="weekPlan"></div>
+      <button class="primary-btn big-btn" id="genShopFromWeek">🧾 从一周菜谱生成采买清单</button>
+    </div>
+  </section>
+
+  <!-- ===== 我的 tab ===== -->
+  <section id="tab-me" class="tab-page">
+    <div class="page-head">
+      <h2>🙋 我的</h2>
+    </div>
+
+    <div class="card">
+      <h3>📸 晒成品</h3>
+      <div class="form-row">
+        <label>做了哪道菜</label>
+        <select id="showRecipe"></select>
+      </div>
+      <div class="form-row">
+        <label>打几分</label>
+        <div class="stars" id="showStars">
+          <span data-v="1">★</span><span data-v="2">★</span><span data-v="3">★</span><span data-v="4">★</span><span data-v="5">★</span>
+        </div>
+      </div>
+      <div class="form-row">
+        <label>心得</label>
+        <textarea id="showNote" rows="2" placeholder="说说这次做得咋样…" maxlength="200"></textarea>
+      </div>
+      <button class="primary-btn big-btn" id="showSubmit">发布晒单</button>
+    </div>
+
+    <div class="card">
+      <h3>🏆 成品展示墙</h3>
+      <div id="showWall"></div>
+    </div>
+
+    <div class="card">
+      <h3>🎁 我的积分 <span class="points-num" id="pointsNum">0</span></h3>
+      <p class="hint">我的邀请码：<b id="inviteCode" class="code"></b>
+        <button class="link-btn" id="copyCode">复制</button>
+      </p>
+      <button class="primary-btn big-btn" id="simInvite">👥 模拟好友接受邀请（+10分·演示）</button>
+      <h4 class="sub-h">积分明细</h4>
+      <ul id="pointsLog" class="log-list"></ul>
+    </div>
+  </section>
+
+</main>
+
+<nav class="bottom-nav">
+  <button class="nav-btn active" data-tab="tab-ingredients"><span class="nav-ico">🧺</span>食材</button>
+  <button class="nav-btn" data-tab="tab-recipes"><span class="nav-ico">📖</span>菜谱</button>
+  <button class="nav-btn" data-tab="tab-assistant"><span class="nav-ico">🤖</span>助手</button>
+  <button class="nav-btn" data-tab="tab-lists"><span class="nav-ico">📝</span>清单</button>
+  <button class="nav-btn" data-tab="tab-me"><span class="nav-ico">🙋</span>我的</button>
+</nav>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
