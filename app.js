@@ -631,13 +631,15 @@
     state.shop.forEach((s, i) => lines.push(`${s.done ? "☑" : "☐"} ${i + 1}. ${s.name}`));
     lines.push("", "—— 祝做饭愉快！😋");
     const blob = new Blob(["\ufeff" + lines.join("\n")], { type: "text/plain;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
-    a.href = URL.createObjectURL(blob);
+    a.href = url;
     a.download = "采买清单.txt";
+    a.style.display = "none";
     document.body.appendChild(a);
-    a.click();
-    setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500);
-    alert("清单已开始下载 ⬇️");
+    // 移动端兼容：用 dispatchEvent 触发点击，避免 alert 打断下载
+    a.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true, view: window }));
+    setTimeout(() => { URL.revokeObjectURL(url); a.remove(); }, 2000);
   });
 
   /* ================= 厨房助手 ================= */
