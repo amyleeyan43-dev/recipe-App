@@ -1,5 +1,5 @@
 /* 今天吃啥 · Service Worker：离线可用 */
-const CACHE = "jin-tian-chi-sha-v1";
+const CACHE = "jin-tian-chi-sha-v2";
 const CORE = [
   "./",
   "./index.html",
